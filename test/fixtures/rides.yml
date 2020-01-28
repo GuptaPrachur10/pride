@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from: MyString
+  to: MyString
+  date: 2020-01-13 12:44:24
+  driver: one
+
+two:
+  from: MyString
+  to: MyString
+  date: 2020-01-13 12:44:24
+  driver: two
