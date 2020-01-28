@@ -1,0 +1,19 @@
+<br>
+<%= form_for(@route) do |f| %>
+  <div class="field">
+  	<%= f.label :from %>
+    <%= f.text_field :from, class: 'form-control', placeholder: "Enter a Location..." %>
+
+    <%= f.label :to %>
+    <%= f.text_field :to, class: 'form-control', placeholder: "Enter a Location..." %>
+
+    <%= f.label :date %>
+    <div class="form-group">
+    	<div class='input-group date' id='datetimepicker'>
+    	<%= f.text_field :date, class: 'form-control', placeholder: "Enter Date & Time" %>
+    		<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    	</div>
+  	</div>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

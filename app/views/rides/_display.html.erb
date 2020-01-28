@@ -1,0 +1,33 @@
+<ul class="users">
+  <% @requests.each do |request| %>
+  <li id="micropost">
+  <%= gravatar_for(request.rider, size: 50) %>
+  <span class="user"><%= request.rider.name %></span><br><br><br>
+  <span style="margin-left:0px;" class="content">
+    <b>From:</b> <%= request.rider.route.from.upcase %><br> 
+    <b>To:</b> <%= request.rider.route.to.upcase %><br>
+    <b>Time:</b> <%= request.rider.route.date.strftime("%d %b %Y %I:%M %p") %>
+  </span><br>
+  <% if request.status == 2 %>
+    <span class="text-danger glyphicon glyphicon-remove"> Declined</span>
+  <% else %>
+    <div style="padding-left: 0px" class="col-xs-12">
+
+      <div style="padding-left: 0px" class="col-xs-6">
+        <%= form_for(request,html: { method: :patch }, remote: true) do |f| %>
+        <div id="limit"><%= hidden_field_tag :rider_id, request.rider.id %></div>
+        <%= f.submit "Accept", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      <div style="padding-left: 0px" class="col-xs-6">
+        <%= form_for(request,html: { method: :delete }, remote: true) do |f| %>
+        <div id="limit"><%= hidden_field_tag :rider_id, request.rider.id %></div>
+        <%= f.submit "Decline", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      
+    </div>
+  <% end %>
+  </li>
+  <% end %>
+</ul>

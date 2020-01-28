@@ -1,0 +1,29 @@
+<% provide(:title, @rider.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @rider %>
+        <%= @rider.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
+<aside class="col-md-4">
+	<%= render 'routes/show' %>
+</aside>
+<div class="col-md-8">
+  <% if Relationship.find_by(rider_id:current_rider.id,status:1).present? %>
+    <h3 style="margin-left:60px;">Enjoy Your Ride!</h3>
+    <% @accept = Relationship.find_by(rider_id:current_rider.id,status:1) %>
+    <ol class="microposts">
+      <%= render 'shared/driver' %>
+    </ol>
+  <% elsif (@recommendations).present? %>
+    <h3 style="margin-left:40px;">Recommendations (<%= @count %>)</h3>
+    <ol class="microposts">
+      <%= render 'routes/display' %>
+      <%=  will_paginate @recommendations %>
+    </ol>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+<ul class="users">
+  <% @recommendations.each do |ride| %>
+  <li id="micropost">
+  <%= gravatar_for(ride[0].driver, size: 50) %>
+  <span class="user"><%= ride[0].driver.name %></span><br>
+  <br><br>
+  <span style="margin-left:0px;" class="content">
+    <b>From:</b> <%= ride[0].from.upcase %> <br>
+    <b>To:</b> <%= ride[0].to.upcase %> <br>
+    <b>Time:</b> <%= ride[0].date.strftime("%d %b %Y %I:%M %p") %><br>
+  </span>
+  <br><span style="font-style:bold;font-size: 1.25em;">Price: Rs <%= ride[1] %> </span><br>
+  <% if Relationship.find_by(rider_id:current_rider.id,driver_id:ride[0].driver.id,status:2).present? %>
+  <span style="font-size:1.15em;" class="text-danger glyphicon glyphicon-remove"> Declined</span>
+  <% elsif Relationship.find_by(rider_id:current_rider.id,driver_id:ride[0].driver.id,status:0).nil? %>
+    <%= form_for(current_rider.active_relationships.build, remote: true) do |f| %>
+    <div style="margin-top:10px;" id="limit"><%= hidden_field_tag :driver_id, ride[0].driver.id %></div>
+    <%= f.submit "Request", class: "btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <span style="font-size:1.15em;" class="text-success glyphicon glyphicon-ok"> Requested</span>
+  <% end %>  
+  </li>
+  <% end %>
+</ul>

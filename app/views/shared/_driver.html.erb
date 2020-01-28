@@ -1,0 +1,13 @@
+<div style="margin-left:60px;">
+  <%= gravatar_for(@accept.driver, size: 50) %>
+  <span class="user"><%= @accept.driver.name %></span><br><br><br>
+  <span style="margin-left:0px;" class="content">
+    <b>From:</b> <%= @accept.driver.ride.from.upcase %><br>
+    <b>To:</b> <%= @accept.driver.ride.to.upcase %><br>
+    <b>Time:</b> <%= @accept.driver.ride.date.strftime("%d %b %Y %I:%M %p")%>
+  </span><br>
+  <span style="margin-left:0px;font-style:bold;font-size: 1.25em;"class="content">
+  	Contact Driver: <%= @accept.driver.mobile %><br>
+    Pay Rs <%= get_price(@accept.driver.ride) %>
+  </span>
+</div>

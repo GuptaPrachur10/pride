@@ -1,0 +1,13 @@
+<div style="margin-left:60px;">
+  <%= gravatar_for(@accept.rider, size: 50) %>
+  <span class="user"><%= @accept.rider.name %></span><br><br><br>
+  <span style="margin-left:0px;" class="content">
+    <b>From:</b> <%= @accept.rider.route.from.upcase%><br>
+    <b>To:</b> <%= @accept.rider.route.to.upcase%><br>
+    <b>Time:</b> <%= @accept.rider.route.date.strftime("%d %b %Y %I:%M %p")%>
+  </span><br>
+  <span style="margin-left:0px;font-style:bold;font-size: 1.25em;" class="content">
+  	Contact Rider: <%= @accept.rider.mobile %><br>
+    Collect Rs <%= get_price(current_driver.ride) %>
+  </span>
+</div>

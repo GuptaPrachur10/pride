@@ -1,0 +1,32 @@
+<% provide(:title, @driver.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @driver %>
+        <%= @driver.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
+<aside class="col-md-4">
+	<%= render 'rides/show' %>
+</aside>
+<div class="col-md-8">
+  <% if Relationship.find_by(driver_id:current_driver.id,status:1).present? %>
+    <h3 style="margin-left:60px;">Enjoy Your Ride!</h3>
+    <% @accept = Relationship.find_by(driver_id:current_driver.id,status:1) %>
+    <ol class="microposts">
+      <%= render 'shared/rider' %>
+    </ol>
+  <% elsif Relationship.where(driver_id:current_driver.id,status:0).or(Relationship.where(driver_id:current_driver.id,status:2)).present? %>
+  	<% @requests = Relationship.where(driver_id:current_driver.id,status:0).or(Relationship.where(driver_id:current_driver.id,status:2)) %>
+    <% count = @requests.count %>
+    <% @requests = @requests.paginate(page: params[:page], :per_page => 5) %>
+    <h3 style="margin-left:40px;">Requests (<%= count %>)</h3>
+    <ol class="microposts">
+      <%= render 'rides/display' %>
+      <%= will_paginate @requests %>
+    </ol>
+  <% end %>
+</div>

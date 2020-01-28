@@ -1,0 +1,42 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to 'p-ride', root_path, id: "logo" %>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Home", root_path, id:"try" %></li>
+          <li><%= link_to "Help",   help_path, id:"try" %></li>
+          <% if rider_logged_in? %>
+            <li class="dropdown">
+              <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Menu <b class="caret"></b>
+              </a> 
+              <ul class="dropdown-menu">
+                <li><%= link_to "Edit Profile", edit_rider_path(current_rider) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", rider_logout_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% elsif driver_logged_in? %> 
+            <li class="dropdown" >
+              <a id="try" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Menu <b class="caret"></b>
+              </a> 
+              <ul class="dropdown-menu">
+                <li><%= link_to "Edit Profile", edit_driver_path(current_driver) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", driver_logout_path, method: :delete %>
+                </li>
+              </ul>
+            </li>           
+          <% else %> 
+            <li><%= link_to "Rider Login", rider_login_url, id:"try" %></li>
+            <li><%= link_to "Driver Login", driver_login_url, id:"try" %></li>  
+          <% end %>        
+      </ul>
+    </nav>
+  </div>
+</header>
+
